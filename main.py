@@ -5,9 +5,9 @@ import os
 import time
 
 #===================Python Variables=======================
-menu_category = ["Chá & Café","Bebidas","Fast Food","Lanches","Sobremesas"]
+menu_category = ["Cha e Cafe","Bebidas","Fast Food","Lanches","Sobremesas"]
 
-menu_category_dict = {"Chá & Café":"1 Cha & Cafe.txt","Bebidas":"2 Bebidas.txt",
+menu_category_dict = {"Cha e Cafe":"1 ChaCafe.txt","Bebidas":"2 Bebidas.txt",
                 "Fast Food":"3 Fast Food.txt","Lanches":"4 Lanches.txt",
                 "Sobremesas":"5 Sobremesas.txt"}
 
@@ -187,14 +187,13 @@ def bill_button_operation():
     if not customerContact.get().isdigit():
         tmsg.showinfo("Error", "Invalid Customer Contact")
         return   
-    ans = tmsg.askquestion("Gerar Nota", "Tem certeza que quer gerar nota?")
     ans = "yes"
     if ans=="yes":
         bill = Toplevel()
         bill.title("Bill")
         bill.geometry("670x500+300+100")
         bill.wm_iconbitmap("Coffee.ico")
-        bill_text_area = Text(bill, font=("arial", 12))
+        bill_text_area = Text(bill, font=fonte_arial12)
         st = "\n\t\t\tDF - GAMA\n"
         st += "\t\t\tZIP CODE: 27AHXPP3379HIZH\n"
         st += "-"*61 + "BILL" + "-"*61 + "\nData: "
@@ -254,6 +253,7 @@ def close_window():
     tmsg.showinfo("Thanks", "Thanks for using our service")
     root.destroy()
 #[name,rate,quantity,str(int(rate)*int(quantity)),category]
+
 #==================Backend Code Ends===============
 
 #================Frontend Code Start==============
@@ -262,8 +262,10 @@ w, h = root.winfo_screenwidth(), root.winfo_screenheight()
 root.geometry("%dx%d+0+0" % (w, h))
 root.title("Bem-Vindo")
 root.wm_iconbitmap("Burger.ico")
-#root.attributes('-fullscreen', True)
-#root.resizable(0, 0)
+fonte_timesnemroman = "times new roman"
+fonte_arial15 = ("arial", 15, "bold")
+fonte_arial12 = ("arial", 12, "bold")
+
 
 #================Title==============
 style_button = ttk.Style()
@@ -274,43 +276,43 @@ title_frame = Frame(root, bd=8, bg="#074463", relief=GROOVE)
 title_frame.pack(side=TOP, fill="x")
 
 title_label = Label(title_frame, text="SISTEMA DE COMPRAS", 
-                    font=("times new roman", 22, "bold"),bg = "#074463", fg="white", pady=5)
+                    font=(fonte_timesnemroman, 22, "bold"),bg = "#074463", fg="white", pady=5)
 title_label.pack()
 
 #==============Customer=============
-customer_frame = LabelFrame(root,text="Detalhes Cliente",font=("times new roman", 15, "bold"),
+customer_frame = LabelFrame(root,text="Detalhes Cliente",font=(fonte_timesnemroman, 15, "bold"),
                             bd=6, bg="#074463", relief=GROOVE, fg="white")
 customer_frame.pack(side=TOP, fill="x")
 
 customer_name_label = Label(customer_frame, text="Nome:", 
-                    font=("arial", 15, "bold"),bg = "#074463", fg="white")
+                    font=fonte_arial15,bg = "#074463", fg="white")
 customer_name_label.grid(row = 0, column = 0, padx=20)
 
 customerName = StringVar()
 customerName.set("")
-customer_name_entry = Entry(customer_frame,width=20,font="arial 15",bd=5,
+customer_name_entry = Entry(customer_frame,width=20,font=fonte_arial15,bd=5,
                                 textvariable=customerName)
 customer_name_entry.grid(row = 0, column=1,padx=50)
 
 customer_contact_label = Label(customer_frame, text="Telefone:", 
-                    font=("arial", 15, "bold"),bg = "#074463", fg="white")
+                    font=fonte_arial15,bg = "#074463", fg="white")
 customer_contact_label.grid(row = 0, column = 2)
 
 customerContact = StringVar()
 customerContact.set("")
 
-customer_name_entry = Entry(customer_frame,width=20,font="arial 15",bd=5,
+customer_name_entry = Entry(customer_frame,width=20,font=fonte_arial15,bd=5,
                                 textvariable=customerName)
 customer_name_entry.grid(row = 0, column=1,padx=50)
 
 customer_contact_label = Label(customer_frame, text="Telefone:", 
-                    font=("arial", 15, "bold"),bg = "#074463", fg="white")
+                    font=fonte_arial15,bg = "#074463", fg="white")
 customer_contact_label.grid(row = 0, column = 2)
 
 customerContact = StringVar()
 customerContact.set("")
 
-customer_contact_entry = Entry(customer_frame,width=20,font="arial 15",bd=5,
+customer_contact_entry = Entry(customer_frame,width=20,font=fonte_arial15,bd=5,
                                 textvariable=customerContact)
 customer_contact_entry.grid(row = 0, column=3,padx=50)
 
@@ -322,13 +324,14 @@ menu_category_frame = Frame(menu_frame,bg="#074463",pady=10)
 menu_category_frame.pack(fill="x")
 
 combo_lable = Label(menu_category_frame,text="Filtrar:", 
-                    font=("arial", 12, "bold"),bg = "#074463", fg="white")
+                    font=fonte_arial12,bg = "#074463", fg="white")
 combo_lable.grid(row=0,column=0,padx=20)
 
 menuCategory = StringVar()
 combo_menu = ttk.Combobox(menu_category_frame,values=menu_category,
                             textvariable=menuCategory)
 combo_menu.grid(row=0,column=1,padx=30)
+
 
 show_button = ttk.Button(menu_category_frame, text="Filtro",width=10,
                         command=show_button_operation)
@@ -347,7 +350,7 @@ scrollbar_menu_y = Scrollbar(menu_tabel_frame,orient=VERTICAL)
 
 style = ttk.Style()
 style.configure("Treeview.Heading",font=("arial",13, "bold"))
-style.configure("Treeview",font=("arial",12),rowheight=25)
+style.configure("Treeview",font=fonte_arial12,rowheight=25)
 
 menu_tabel = ttk.Treeview(menu_tabel_frame,style = "Treeview",
             columns =("name","price","category"),xscrollcommand=scrollbar_menu_x.set,
@@ -379,14 +382,14 @@ item_frame = Frame(root,bd=8, bg="#074463", relief=GROOVE)
 item_frame.place(x=680,y=125,height=230,width=680)
 
 item_title_label = Label(item_frame, text="Detalhes", 
-                    font=("times new roman", 20, "bold"),bg = "#074463", fg="white")
+                    font=(fonte_timesnemroman, 20, "bold"),bg = "#074463", fg="white")
 item_title_label.pack(side=TOP,fill="x")
 
 item_frame2 = Frame(item_frame, bg="#074463")
 item_frame2.pack(fill=X)
 
 item_name_label = Label(item_frame2, text="Nome", 
-                    font=("arial", 12, "bold"),bg = "#074463", fg="white")
+                    font=fonte_arial12,bg = "#074463", fg="white")
 item_name_label.grid(row=0,column=0)
 
 itemCategory = StringVar()
@@ -394,25 +397,25 @@ itemCategory.set("")
 
 itemName = StringVar()
 itemName.set("")
-item_name = Entry(item_frame2, font="arial 12",textvariable=itemName,state=DISABLED, width=25)
+item_name = Entry(item_frame2, font=fonte_arial12,textvariable=itemName,state=DISABLED, width=25)
 item_name.grid(row=0,column=1,padx=10)
 
 item_rate_label = Label(item_frame2, text="Taxa(R$)", 
-                    font=("arial", 12, "bold"),bg = "#074463", fg="white")
+                    font=fonte_arial12,bg = "#074463", fg="white")
 item_rate_label.grid(row=0,column=2,padx=30,pady=10)
 
 itemRate = StringVar()
 itemRate.set("")
-item_rate = Entry(item_frame2, font="arial 12",textvariable=itemRate,state=DISABLED, width=10)
+item_rate = Entry(item_frame2, font=fonte_arial12,textvariable=itemRate,state=DISABLED, width=10)
 item_rate.grid(row=0,column=3,padx=10)
 
 item_quantity_label = Label(item_frame2, text="Quantidade", 
-                    font=("arial", 12, "bold"),bg = "#074463", fg="white")
+                    font=fonte_arial12,bg = "#074463", fg="white")
 item_quantity_label.grid(row=1,column=0,padx=30,pady=15)
 
 itemQuantity = StringVar()
 itemQuantity.set("")
-item_quantity = Entry(item_frame2, font="arial 12",textvariable=itemQuantity, width=25)
+item_quantity = Entry(item_frame2, font=fonte_arial12,textvariable=itemQuantity, width=25)
 item_quantity.grid(row=1,column=1)
 
 item_frame3 = Frame(item_frame, bg="#074463")
@@ -439,7 +442,7 @@ order_frame = Frame(root,bd=8, bg="#074463", relief=GROOVE)
 order_frame.place(x=680,y=335,height=370,width=680)
 
 order_title_label = Label(order_frame, text="Todos Pedidos", 
-                    font=("times new roman", 20, "bold"),bg = "#074463", fg="white")
+                    font=(fonte_timesnemroman, 20, "bold"),bg = "#074463", fg="white")
 order_title_label.pack(side=TOP,fill="x")
 
 ############################## Order Tabel ###################################
@@ -477,12 +480,12 @@ order_tabel.pack(fill=BOTH,expand=1)
 ###########################################################################################
 
 total_price_label = Label(order_frame, text="Total Price", 
-                    font=("arial", 12, "bold"),bg = "#074463", fg="white")
+                    font=fonte_arial12,bg = "#074463", fg="white")
 total_price_label.pack(side=LEFT,anchor=SW,padx=20,pady=10)
 
 totalPrice = StringVar()
 totalPrice.set("")
-total_price_entry = Entry(order_frame, font="arial 12",textvariable=totalPrice,state=DISABLED, 
+total_price_entry = Entry(order_frame, font=fonte_arial12,textvariable=totalPrice,state=DISABLED, 
                             width=10)
 total_price_entry.pack(side=LEFT,anchor=SW,padx=0,pady=10)
 
